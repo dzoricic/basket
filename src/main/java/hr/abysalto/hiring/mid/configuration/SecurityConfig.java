@@ -7,6 +7,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.annotation.web.configurers.CsrfConfigurer;
+import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -34,7 +35,10 @@ public class SecurityConfig {
 															  .requestMatchers("/v3/api-docs*/**").permitAll()
 															  .anyRequest().authenticated())
 			.httpBasic(Customizer.withDefaults())
-			.formLogin(Customizer.withDefaults());
+			.formLogin(Customizer.withDefaults())
+            .headers(httpSecurityHeadersConfigurer -> {
+                httpSecurityHeadersConfigurer.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable);
+            });
 		return http.build();
 	}
 
