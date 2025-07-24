@@ -12,4 +12,8 @@ public record ApiError(HttpStatus status,
     public ApiError(HttpStatus status, String message) {
         this(status, message, "", List.of());
     }
+
+    public ApiError(HttpStatus status, String message, List<String> details) {
+        this(status, message, "", details);
+    }
 }

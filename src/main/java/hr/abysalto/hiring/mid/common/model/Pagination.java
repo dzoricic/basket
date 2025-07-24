@@ -1,12 +1,12 @@
 package hr.abysalto.hiring.mid.common.model;
 
-import hr.abysalto.hiring.mid.common.validation.PaginationLimits;
+import hr.abysalto.hiring.mid.common.validation.ValidPagination;
 import org.springframework.validation.annotation.Validated;
 
 import java.util.Optional;
 
 @Validated
-@PaginationLimits
+@ValidPagination
 public record Pagination(Integer size, Integer page) {
 
     public static final Integer MAX_SIZE = 100;

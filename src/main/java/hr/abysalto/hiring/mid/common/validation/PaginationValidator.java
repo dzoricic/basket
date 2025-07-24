@@ -9,7 +9,7 @@ import java.util.Objects;
 import static hr.abysalto.hiring.mid.common.model.Pagination.MAX_PAGE;
 import static hr.abysalto.hiring.mid.common.model.Pagination.MAX_SIZE;
 
-public class PaginationValidator implements ConstraintValidator<PaginationLimits, Pagination> {
+public class PaginationValidator implements ConstraintValidator<ValidPagination, Pagination> {
 
     @Override
     public boolean isValid(Pagination pagination, ConstraintValidatorContext context) {
@@ -17,8 +17,16 @@ public class PaginationValidator implements ConstraintValidator<PaginationLimits
             return true;
         }
         if (pagination.size() > MAX_SIZE || pagination.size() < 1) {
+            context.disableDefaultConstraintViolation();
+            context.buildConstraintViolationWithTemplate("Invalid size value.").addConstraintViolation();
             return false;
         }
-        return pagination.page() <= MAX_PAGE && pagination.page() >= 1;
+        if (pagination.page() > MAX_PAGE || pagination.page() < 1) {
+
+            context.disableDefaultConstraintViolation();
+            context.buildConstraintViolationWithTemplate("Invalid page value.").addConstraintViolation();
+            return false;
+        }
+        return true;
     }
 }

@@ -1,6 +1,7 @@
 package hr.abysalto.hiring.mid.common.exceptions;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -27,7 +28,12 @@ public class RestControllerExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ApiError> handleMethodArgumentNotValidException(MethodArgumentNotValidException ex) {
-        var apiError = new ApiError(HttpStatus.BAD_REQUEST, ex.getMessage());
+        var errorDescriptions = ex.getBindingResult()
+                .getAllErrors()
+                .stream()
+                .map(DefaultMessageSourceResolvable::getDefaultMessage)
+                .toList();
+        var apiError = new ApiError(HttpStatus.BAD_REQUEST, "Invalid argument.", errorDescriptions);
         return new ResponseEntity<>(apiError, apiError.status());
     }
 

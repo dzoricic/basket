@@ -9,7 +9,7 @@ import java.lang.annotation.*;
 @Constraint(validatedBy = PaginationValidator.class)
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface PaginationLimits {
+public @interface ValidPagination {
 
     String message() default "Invalid pagination value";
 
