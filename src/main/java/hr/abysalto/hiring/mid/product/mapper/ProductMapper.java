@@ -28,11 +28,7 @@ public final class ProductMapper {
         );
     }
 
-    private static int resolvePage(int skip, int limit) {
-        return BigDecimal.valueOf(skip).divide(BigDecimal.valueOf(limit), RoundingMode.CEILING).intValue() + 1;
-    }
-
-    private static ProductApiModel toApiModel(ProductDto productDto) {
+    public static ProductApiModel toApiModel(ProductDto productDto) {
         var productSpecification = new ProductApiModel.ProductSpecification(
                 productDto.specifications().width(),
                 productDto.specifications().height(),
@@ -65,7 +61,7 @@ public final class ProductMapper {
         );
     }
 
-    private static ProductDto fromDummyDto(DummyJsonProductDto dummyDto) {
+    public static ProductDto fromDummyDto(DummyJsonProductDto dummyDto) {
         var basicInformation = new ProductDto.BasicInformation(
                 dummyDto.title(),
                 dummyDto.description(),
@@ -110,5 +106,9 @@ public final class ProductMapper {
                 dummyDto.reviews(),
                 meta
         );
+    }
+
+    private static int resolvePage(int skip, int limit) {
+        return BigDecimal.valueOf(skip).divide(BigDecimal.valueOf(limit), RoundingMode.CEILING).intValue() + 1;
     }
 }

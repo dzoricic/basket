@@ -1,5 +1,6 @@
 package hr.abysalto.hiring.mid.common.util;
 
+import hr.abysalto.hiring.mid.common.exceptions.InvalidIdException;
 import org.hashids.Hashids;
 
 import java.util.Objects;
@@ -15,13 +16,21 @@ public final class CryptUtils {
         return hashids.encode(id);
     }
 
-    public static int decrypt(String encoded) {
-        var result = hashids.decode(encoded);
+    public static int decrypt(String value) {
+        var result = decodeId(value);
 
         if (Objects.isNull(result) || result.length == 0 || result[0] < 0 || result[0] > Integer.MAX_VALUE) {
-            throw new IllegalArgumentException("Invalid ID");
+            throw new InvalidIdException();
         }
 
         return (int) result[0];
+    }
+
+    private static long[] decodeId(String value) {
+        try {
+            return hashids.decode(value);
+        } catch (IllegalArgumentException ex) {
+            throw new InvalidIdException();
+        }
     }
 }

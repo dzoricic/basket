@@ -3,6 +3,7 @@ package hr.abysalto.hiring.mid.common.exceptions;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.client.RestClientException;
@@ -18,8 +19,14 @@ public class RestControllerExceptionHandler {
         return new ResponseEntity<>(apiError, apiError.status());
     }
 
-    @ExceptionHandler(IllegalArgumentException.class)
-    public ResponseEntity<ApiError> handleIllegalArgumentException(IllegalArgumentException ex) {
+    @ExceptionHandler(InvalidIdException.class)
+    public ResponseEntity<ApiError> handleInvalidIdException(InvalidIdException ex) {
+        var apiError = new ApiError(HttpStatus.BAD_REQUEST, ex.getMessage());
+        return new ResponseEntity<>(apiError, apiError.status());
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<ApiError> handleMethodArgumentNotValidException(MethodArgumentNotValidException ex) {
         var apiError = new ApiError(HttpStatus.BAD_REQUEST, ex.getMessage());
         return new ResponseEntity<>(apiError, apiError.status());
     }

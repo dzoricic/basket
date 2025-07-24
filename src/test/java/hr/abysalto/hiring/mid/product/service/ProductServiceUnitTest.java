@@ -10,7 +10,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 
-import static hr.abysalto.hiring.mid.factory.DummyJsonFactory.givenDummyJsonProductsResponse;
+import static hr.abysalto.hiring.mid.factory.ProductFactory.givenDummyJsonProductsResponse;
 import static org.assertj.core.api.BDDAssertions.then;
 import static org.mockito.Mockito.when;
 
