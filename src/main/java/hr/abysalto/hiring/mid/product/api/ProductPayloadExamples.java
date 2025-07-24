@@ -2,6 +2,7 @@ package hr.abysalto.hiring.mid.product.api;
 
 public final class ProductPayloadExamples {
 
+    // UPDATE
     public static final String GET_PAYLOADS_RESPONSE = """
         {
             "id": 1,

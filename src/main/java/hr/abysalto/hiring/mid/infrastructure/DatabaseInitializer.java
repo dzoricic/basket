@@ -1,6 +1,5 @@
 package hr.abysalto.hiring.mid.infrastructure;
 
-import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
@@ -17,7 +16,7 @@ public class DatabaseInitializer {
 		return this.dataInitialized;
 	}
 
-	@PostConstruct
+	// @PostConstruct
 	public void initialize() {
 		initTables();
 		initData();
