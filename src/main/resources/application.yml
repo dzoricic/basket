@@ -3,13 +3,13 @@ server.port: 8080
 spring:
   application.name: java.mid
   datasource:
-    url: ${DB_CONNECTION_URL:jdbc:postgresql://localhost:5432/BasketMain}
-    username: ${USERNAME:standardUser}
-    password: ${PASSWORD:A_Str0ng_Passw0rd}
+    url: jdbc:postgresql://${DB_HOST:postgres}:${DB_PORT:5432}/${DB_NAME:BasketMain}
+    username: ${DB_USER:standardUser}
+    password: ${DB_PASSWORD:A_Str0ng_Passw0rd}
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate.ddl-auto: update
-    show-sql: true
+    show-sql: false
     properties.hibernate:
       dialect: org.hibernate.dialect.PostgreSQLDialect
       format_sql: true
@@ -28,7 +28,7 @@ logging:
   level:
     org.hibernate.SQL: DEBUG
     org.hibernate.type.descriptor.sql.BasicBinder: TRACE
-    com.yourpackage: ${PACKAGE_NAME:basket}
+    hr.abysalto.hiring.mid: DEBUG
 
 management:
   endpoints:
@@ -38,11 +38,3 @@ management:
   endpoint:
     health:
       show-details: always
-
-spring:
-  config.activate.on-profile: docker
-  datasource:
-    url: jdbc:postgresql://${DB_HOST:postgres}:${DB_PORT:5432}/${DB_NAME:BasketMain}
-    username: ${DB_USER:standardUser}
-    password: ${DB_PASSWORD:A_Str0ng_Passw0rd}
-  jpa.show-sql: false

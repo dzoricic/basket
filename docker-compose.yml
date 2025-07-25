@@ -20,7 +20,8 @@ services:
       timeout: 5s
       retries: 5
   app:
-    build: .
+    build:
+      context: .
     container_name: basket-latest-container
     depends_on:
       postgres:
