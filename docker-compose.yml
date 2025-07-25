@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: basket-main-db
+    environment:
+      POSTGRES_DB: BasketMain
+      POSTGRES_USER: standardUser
+      POSTGRES_PASSWORD: A_Str0ng_Passw0rd
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - app-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U standardUser -d BasketMain"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+  app:
+    build:
+      context: .
+    container_name: basket-latest-container
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      SPRING_PROFILES_ACTIVE: default
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: BasketMain
+      DB_USER: standardUser
+      DB_PASSWORD: A_Str0ng_Passw0rd
+      SPRING_FLYWAY_ENABLED: "true"
+      SPRING_FLYWAY_BASELINE_ON_MIGRATE: "true"
+    ports:
+      - "8080:8080"
+    networks:
+      - app-network
+
+volumes:
+  postgres_data:
+
+networks:
+  app-network:
+    driver: bridge

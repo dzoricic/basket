@@ -1,6 +1,5 @@
 package hr.abysalto.hiring.mid.product.api;
 
-import hr.abysalto.hiring.mid.client.models.DummyJsonProductsResponse;
 import hr.abysalto.hiring.mid.common.model.Pagination;
 import hr.abysalto.hiring.mid.product.mapper.ProductMapper;
 import hr.abysalto.hiring.mid.product.model.ProductsResponseApiModel;
@@ -27,15 +26,15 @@ public class ProductController {
     private final ProductService productService;
 
     @Operation(
-            summary = "ping-pong to show app is alive",
+            summary = "Get all available products paged.",
             responses = {
                     @ApiResponse(
                             description = "Success",
                             responseCode = "200",
                             content = @Content(
                                     mediaType = "text/plain",
-                                    schema = @Schema(implementation = DummyJsonProductsResponse.class),
-                                    examples = @ExampleObject(ProductPayloadExamples.GET_PAYLOADS_RESPONSE)
+                                    schema = @Schema(implementation = ProductsResponseApiModel.class),
+                                    examples = @ExampleObject(ProductPayloadExamples.GET_PRODUCTS_PAYLOAD_RESPONSE)
                             )
                     )
             }

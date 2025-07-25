@@ -1,16 +1,40 @@
+server.port: 8080
+
 spring:
   application.name: java.mid
   datasource:
-    url: jdbc:h2:mem:testdb
-    driverClassName: org.h2.Driver
-    username: sa
-    password: A_Str0ng_Passw0rd
+    url: jdbc:postgresql://${DB_HOST:postgres}:${DB_PORT:5432}/${DB_NAME:BasketMain}
+    username: ${DB_USER:standardUser}
+    password: ${DB_PASSWORD:A_Str0ng_Passw0rd}
+    driver-class-name: org.postgresql.Driver
   jpa:
-    hibernate:
-      ddl-auto: create-drop
-    show-sql: true
-  h2.console:
+    hibernate.ddl-auto: update
+    show-sql: false
+    properties.hibernate:
+      dialect: org.hibernate.dialect.PostgreSQLDialect
+      format_sql: true
+      use_sql_comments: true
+    open-in-view: false
+  flyway:
     enabled: true
-    path: /h2-console
-    settings:
-      web-allow-others: true
+    locations: classpath:db/migration
+    baseline-on-migrate: true
+    baseline-version: 0
+    validate-on-migrate: true
+    clean-disabled: true
+  sql.init.mode: never
+
+logging:
+  level:
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+    hr.abysalto.hiring.mid: DEBUG
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: always
