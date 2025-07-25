@@ -1,6 +1,6 @@
 package hr.abysalto.hiring.mid.common.util;
 
-import hr.abysalto.hiring.mid.common.exceptions.InvalidIdException;
+import hr.abysalto.hiring.mid.product.exception.InvalidProductIdException;
 import org.hashids.Hashids;
 
 import java.util.Objects;
@@ -20,7 +20,7 @@ public final class CryptUtils {
         var result = decodeId(value);
 
         if (Objects.isNull(result) || result.length == 0 || result[0] < 0 || result[0] > Integer.MAX_VALUE) {
-            throw new InvalidIdException();
+            throw new InvalidProductIdException();
         }
 
         return (int) result[0];
@@ -30,7 +30,7 @@ public final class CryptUtils {
         try {
             return hashids.decode(value);
         } catch (IllegalArgumentException ex) {
-            throw new InvalidIdException();
+            throw new InvalidProductIdException();
         }
     }
 }
