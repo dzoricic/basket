@@ -34,7 +34,7 @@ public class ProductController {
                             content = @Content(
                                     mediaType = "text/plain",
                                     schema = @Schema(implementation = ProductsResponseApiModel.class),
-                                    examples = @ExampleObject(ProductPayloadExamples.GET_PAYLOADS_RESPONSE)
+                                    examples = @ExampleObject(ProductPayloadExamples.GET_PRODUCTS_PAYLOAD_RESPONSE)
                             )
                     )
             }
