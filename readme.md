@@ -19,13 +19,12 @@ To run on local machine using IntelliJ, right click on hr.abysalto.hiring.mid.**
 To run, I suggest creating a configuration for running Dockerfile in IntelliJ.
 Steps:
 * Edit Configurations...
-* \+ -> Docker -> Dockerfile
-* Select Dockerfile from project root 
-* Fill in the image and container info 
-* Bind docker port to machine port (in my case 8080 to 8080)
+* \+ -> Docker -> Docker Compose
+* Select docker-compose.yml from root 
+* In modify options, select the option to always build new image 
 * Add Before Launch "Run Maven Goal" **clean package -DskipTests**
 
-The H2 database is embedded so You don't have to worry about it at the moment (If I find time I'll create a separate containerized DB)
+This will open 2 containers and a connection between them. It will also expose the ports on local machine.
 
 ### Features
 
@@ -76,3 +75,9 @@ Also I'm not using any ci/cd here so I'll just uplift versions manually through 
 * Added custom error for id decryption
 * Added tests for all current components except for controller
   * I plan to add functional tests later on
+
+## 0.1.0 - First Minor Version?
+
+* Added docker-compose.yml file
+  * Added postgresql database and flyway scripts which drastically changes the way the app works. That's why we have a new minor version indicating a bigger update that may be breaking change.
+Even though the diff is smaller the change is significant.
