@@ -1,7 +1,5 @@
 package hr.abysalto.hiring.mid.common.exceptions;
 
-import hr.abysalto.hiring.mid.product.exception.InvalidProductIdException;
-import hr.abysalto.hiring.mid.user.exception.UserNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
@@ -12,12 +10,14 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.client.RestClientException;
 
+import java.util.NoSuchElementException;
+
 @Slf4j
 @RestControllerAdvice
 public class RestControllerExceptionHandler {
 
-    @ExceptionHandler(InvalidProductIdException.class)
-    public ResponseEntity<ApiError> handleInvalidIdException(InvalidProductIdException ex) {
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<ApiError> handleIllegalArgumentException(IllegalArgumentException ex) {
         var apiError = new ApiError(HttpStatus.BAD_REQUEST, ex.getMessage());
         return new ResponseEntity<>(apiError, apiError.status());
     }
@@ -39,8 +39,8 @@ public class RestControllerExceptionHandler {
         return new ResponseEntity<>(apiError, apiError.status());
     }
 
-    @ExceptionHandler(UserNotFoundException.class)
-    public ResponseEntity<ApiError> handleUserNotFoundException(UserNotFoundException ex) {
+    @ExceptionHandler(NoSuchElementException.class)
+    public ResponseEntity<ApiError> handleNoSuchElementException(NoSuchElementException ex) {
         var apiError = new ApiError(HttpStatus.NOT_FOUND, ex.getMessage());
         return new ResponseEntity<>(apiError, apiError.status());
     }
