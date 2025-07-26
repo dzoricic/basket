@@ -81,3 +81,11 @@ Also I'm not using any ci/cd here so I'll just uplift versions manually through 
 * Added docker-compose.yml file
   * Added postgresql database and flyway scripts which drastically changes the way the app works. That's why we have a new minor version indicating a bigger update that may be breaking change.
 Even though the diff is smaller the change is significant.
+
+## 0.1.1 - Build It And They Will Come
+
+* Added Login and Registration
+* Added bearer token authorization for all endpoints apart from swagger, openapi, login and registration
+* Added UserService and tests
+* Added user related models
+  * I know I'm kind of throwing new models left and right and complicating things but since this is a task I want to simulate a project/environment that uses multiple services which rely on DB/External model/entity, model that's used inside our project (DTO model) and model exposed to clients (ApiModel)

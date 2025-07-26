@@ -1,0 +1,47 @@
+package hr.abysalto.hiring.mid.user.api;
+
+import hr.abysalto.hiring.mid.common.util.JwtUtils;
+import hr.abysalto.hiring.mid.user.mapper.UserMapper;
+import hr.abysalto.hiring.mid.user.model.AccessResponse;
+import hr.abysalto.hiring.mid.user.model.RegistrationRequest;
+import hr.abysalto.hiring.mid.user.model.UserApiModel;
+import hr.abysalto.hiring.mid.user.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.*;
+
+@Tag(name = "Auth", description = "Service used for new user registration.")
+@RestController
+@RequestMapping("/api")
+@AllArgsConstructor
+public class AuthController {
+
+    private final UserService userService;
+    private final JwtUtils jwtUtils;
+
+    @Operation(
+            summary = "Register new user",
+            responses = {
+                    @ApiResponse(
+                            description = "Created",
+                            responseCode = "201"
+                    )
+            }
+    )
+    @PostMapping("/register")
+    public ResponseEntity<AccessResponse> register(@RequestBody RegistrationRequest request) {
+        var userDetails = userService.registerUser(request);
+        var token = jwtUtils.generateToken(userDetails.getUsername());
+        return ResponseEntity.ok(new AccessResponse(token));
+    }
+
+    @GetMapping("/me")
+    public ResponseEntity<UserApiModel> getCurrentUser(Authentication authentication) {
+        var userDto = userService.getUserByUsername(authentication.getName());
+        return ResponseEntity.ok(UserMapper.toApiModel(userDto));
+    }
+}

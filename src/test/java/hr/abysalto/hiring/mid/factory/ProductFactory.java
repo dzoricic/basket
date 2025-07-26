@@ -9,7 +9,7 @@ import hr.abysalto.hiring.mid.product.model.ProductDto;
 
 import java.util.List;
 
-import static hr.abysalto.hiring.mid.constants.TestConstants.*;
+import static hr.abysalto.hiring.mid.constants.ProductConstants.*;
 
 public final class ProductFactory {
 

@@ -1,0 +1,7 @@
+ALTER TABLE buyer
+ADD COLUMN password varchar(100) NOT NULL,
+ADD COLUMN username varchar(100) NOT NULL,
+ADD COLUMN createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+ADD COLUMN updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP;
+
+CREATE INDEX index_buyer_username ON buyer(username);

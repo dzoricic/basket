@@ -23,6 +23,11 @@ spring:
     validate-on-migrate: true
     clean-disabled: true
   sql.init.mode: never
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          secret-key: ${SECRET_KEY:this-will-trigger-dependabot-but-i-need-to-make-it-longer}
 
 logging:
   level:

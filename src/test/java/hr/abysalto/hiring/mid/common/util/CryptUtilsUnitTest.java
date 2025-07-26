@@ -1,6 +1,6 @@
 package hr.abysalto.hiring.mid.common.util;
 
-import hr.abysalto.hiring.mid.common.exceptions.InvalidIdException;
+import hr.abysalto.hiring.mid.product.exception.InvalidProductIdException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -10,7 +10,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.stream.Stream;
 
-import static hr.abysalto.hiring.mid.common.exceptions.InvalidIdException.INVALID_ID_ERROR_MESSAGE;
+import static hr.abysalto.hiring.mid.product.exception.InvalidProductIdException.INVALID_PRODUCT_ID_ERROR_MESSAGE;
 import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.assertj.core.api.BDDAssertions.then;
 
@@ -37,8 +37,8 @@ public class CryptUtilsUnitTest {
         var actual = catchThrowable(() -> CryptUtils.decrypt(givenInvalidProductId));
 
         // then
-        then(actual).isExactlyInstanceOf(InvalidIdException.class);
-        then(actual.getMessage()).isEqualTo(INVALID_ID_ERROR_MESSAGE);
+        then(actual).isExactlyInstanceOf(InvalidProductIdException.class);
+        then(actual.getMessage()).isEqualTo(INVALID_PRODUCT_ID_ERROR_MESSAGE);
     }
 
     private static Stream<Arguments> provideUnsupportedProductIds() {
