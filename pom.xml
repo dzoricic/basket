@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>hr.abysalto.hiring</groupId>
 	<artifactId>java.mid</artifactId>
-	<version>0.1.0</version>
+	<version>0.1.1</version>
 	<name>api.junior</name>
 	<description>Abysalto Hiring - MID</description>
 	<url/>

@@ -2,6 +2,8 @@ package hr.abysalto.hiring.mid.user.service;
 
 import hr.abysalto.hiring.mid.user.mapper.UserMapper;
 import hr.abysalto.hiring.mid.user.model.RegistrationRequest;
+import hr.abysalto.hiring.mid.user.model.UserDto;
+import hr.abysalto.hiring.mid.user.model.UserEntity;
 import hr.abysalto.hiring.mid.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,12 +23,10 @@ public class UserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        var userEntity = userRepository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
-        return UserMapper.authDetailsFromEntity(userEntity);
+        return UserMapper.authDetailsFromEntity(getUserEntityByUsername(username));
     }
 
-    public void registerUser(RegistrationRequest request) {
+    public UserDetails registerUser(RegistrationRequest request) {
         log.info("Registering user {}", request.getUsername());
         if (userRepository.existsByUsername(request.getUsername())) {
             throw new IllegalArgumentException("Username is already in use.");
@@ -34,6 +34,15 @@ public class UserService implements UserDetailsService {
         var entity = UserMapper.toEntity(request);
         var encodedPassword = passwordEncoder.encode(request.getPassword());
         entity.setPassword(encodedPassword);
-        userRepository.save(entity);
+        return UserMapper.authDetailsFromEntity(userRepository.save(entity));
+    }
+
+    public UserDto getUserByUsername(String username) {
+        return UserMapper.fromEntity(getUserEntityByUsername(username));
+    }
+
+    private UserEntity getUserEntityByUsername(String username) {
+        return userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found."));
     }
 }

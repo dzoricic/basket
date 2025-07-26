@@ -1,11 +1,17 @@
 package hr.abysalto.hiring.mid.user.mapper;
 
-import hr.abysalto.hiring.mid.user.model.RegistrationRequest;
-import hr.abysalto.hiring.mid.user.model.UserAuthDetails;
-import hr.abysalto.hiring.mid.user.model.UserDto;
-import hr.abysalto.hiring.mid.user.model.UserEntity;
+import hr.abysalto.hiring.mid.user.model.*;
 
 public final class UserMapper {
+
+    public static UserApiModel toApiModel(UserDto user) {
+        return new UserApiModel(
+                user.username(),
+                user.firstName(),
+                user.lastName(),
+                user.title()
+        );
+    }
 
     public static UserDto fromEntity(UserEntity entity) {
         return new UserDto(

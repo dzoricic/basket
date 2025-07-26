@@ -4,11 +4,9 @@ import hr.abysalto.hiring.mid.product.model.Review;
 
 import java.math.BigDecimal;
 import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
 import java.util.List;
 
-public final class TestConstants {
+public final class ProductConstants {
 
     public static final int ID = 1;
     public static final String TITLE = "Essence Mascara Lash Princess";
