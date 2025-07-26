@@ -28,7 +28,11 @@ This will open 2 containers and a connection between them. It will also expose t
 
 ### Features
 
+* Login and Registration
 * Get Products with size and page
+* Get single product
+* Add and Remove from favourites
+* Get list of favourites
 
 ### Misc
 
@@ -89,3 +93,14 @@ Even though the diff is smaller the change is significant.
 * Added UserService and tests
 * Added user related models
   * I know I'm kind of throwing new models left and right and complicating things but since this is a task I want to simulate a project/environment that uses multiple services which rely on DB/External model/entity, model that's used inside our project (DTO model) and model exposed to clients (ApiModel)
+
+## 0.1.2 - My Favourite
+
+* Added favourites management
+* New flyway script for favourites table
+* Added option to get favourites
+* Added option to add or remove from favourites
+* I'm speeding this up a bit, so I'm not writing any tests at the moment
+  * Don't judge me, I'll add them later, we're still not in production :)
+  * I'll also have to update the documentation
+  * And fixed stuff like unused imports

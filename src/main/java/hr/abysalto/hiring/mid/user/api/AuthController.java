@@ -9,6 +9,8 @@ import hr.abysalto.hiring.mid.user.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -27,13 +29,13 @@ public class AuthController {
             summary = "Register new user",
             responses = {
                     @ApiResponse(
-                            description = "Created",
-                            responseCode = "201"
+                            description = "Success",
+                            responseCode = "200"
                     )
             }
     )
     @PostMapping("/register")
-    public ResponseEntity<AccessResponse> register(@RequestBody RegistrationRequest request) {
+    public ResponseEntity<AccessResponse> register(@RequestBody @Valid @NotNull RegistrationRequest request) {
         var userDetails = userService.registerUser(request);
         var token = jwtUtils.generateToken(userDetails.getUsername());
         return ResponseEntity.ok(new AccessResponse(token));
