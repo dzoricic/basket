@@ -7,6 +7,7 @@ import hr.abysalto.hiring.mid.basket.repository.BasketRepository;
 import hr.abysalto.hiring.mid.common.util.CryptUtils;
 import hr.abysalto.hiring.mid.product.service.ProductService;
 import hr.abysalto.hiring.mid.user.service.UserService;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -33,6 +34,7 @@ public class BasketService {
                 .orElse(BasketMapper.fromEntity(createNewBasket(userId)));
     }
 
+    @Transactional
     public BasketDto updateBasket(String username, String encryptedProductId, int count) {
         var userId = userService.getUserByUsername(username).id();
         var productId = CryptUtils.decrypt(encryptedProductId);
