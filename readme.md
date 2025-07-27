@@ -104,3 +104,10 @@ Even though the diff is smaller the change is significant.
   * Don't judge me, I'll add them later, we're still not in production :)
   * I'll also have to update the documentation
   * And fixed stuff like unused imports
+
+## 0.1.3 - The Basket
+
+* Added basket management
+* check basket, update basket
+  * Both functionalities create baskets if non existant
+* Cancel basket (I don't see much use for this one but I felt like i needed to add it)

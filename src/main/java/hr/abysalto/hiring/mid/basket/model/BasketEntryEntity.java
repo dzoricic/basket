@@ -25,4 +25,7 @@ public class BasketEntryEntity {
 
     @Column(name = "productPrice", nullable = false)
     private BigDecimal productPrice;
+
+    @Column(name = "productCount", nullable = false)
+    private Integer productCount;
 }

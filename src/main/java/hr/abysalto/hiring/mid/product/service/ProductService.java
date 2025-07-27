@@ -1,6 +1,7 @@
 package hr.abysalto.hiring.mid.product.service;
 
 import hr.abysalto.hiring.mid.client.DummyJsonClient;
+import hr.abysalto.hiring.mid.client.models.DummyJsonProductDto;
 import hr.abysalto.hiring.mid.common.model.Pagination;
 import hr.abysalto.hiring.mid.common.util.CryptUtils;
 import hr.abysalto.hiring.mid.product.exception.ProductNotFound;
@@ -27,14 +28,11 @@ public class ProductService {
 
     public ProductDto getProduct(String encryptedProductId) {
         var productId = CryptUtils.decrypt(encryptedProductId);
-        try {
-            return ProductMapper.fromDummyDto(dummyJsonClient.getProduct(productId));
-        } catch (HttpClientErrorException ex) {
-            if (ex.getStatusCode() == HttpStatus.NOT_FOUND) {
-                throw new ProductNotFound("Product with id %s not found.".formatted(encryptedProductId));
-            }
-            throw ex;
-        }
+        return getProduct(productId);
+    }
+
+    public ProductDto getProduct(int productId) {
+        return ProductMapper.fromDummyDto(getProductById(productId));
     }
 
     public boolean exists(int productId) {
@@ -44,6 +42,17 @@ public class ProductService {
         } catch (HttpClientErrorException ex) {
             if (ex.getStatusCode() == HttpStatus.NOT_FOUND) {
                 return false;
+            }
+            throw ex;
+        }
+    }
+
+    private DummyJsonProductDto getProductById(int productId) {
+        try {
+            return dummyJsonClient.getProduct(productId);
+        } catch (HttpClientErrorException ex) {
+            if (ex.getStatusCode() == HttpStatus.NOT_FOUND) {
+                throw new ProductNotFound("Product with id %s not found.".formatted(CryptUtils.encrypt(productId)));
             }
             throw ex;
         }

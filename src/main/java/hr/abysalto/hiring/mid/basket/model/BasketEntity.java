@@ -16,9 +16,9 @@ public class BasketEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
-    private Long userId;
+    private Integer userId;
 
     @Convert(converter = BasketStatusConverter.class)
     private BasketStatus status;
