@@ -28,6 +28,13 @@ spring:
       resourceserver:
         jwt:
           secret-key: ${SECRET_KEY:this-will-trigger-dependabot-but-i-need-to-make-it-longer}
+  cache:
+    type: caffeine
+    caffeine:
+      spec: maximumSize=1000,expireAfterWrite=10m
+    cache-names:
+      - userCache
+      - productCache
 
 logging:
   level:
