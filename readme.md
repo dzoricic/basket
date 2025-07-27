@@ -114,3 +114,6 @@ Even though the diff is smaller the change is significant.
 
 ## 0.1.4 - Cache Money
 
+* Added cacheable with caffeine cache on dummy endpoints only
+* Added transactional on updateBasket (I think that JPA will automatically create transaction if it detects multiple changes but just to be safe)
+
