@@ -117,3 +117,6 @@ Even though the diff is smaller the change is significant.
 * Added transactional on updateBasket (I think that JPA will automatically create transaction if it detects multiple changes but just to be safe)
 
 ## 0.1.5 - Bugfixing
+
+* Fixed bugs
+* Updated documentation
