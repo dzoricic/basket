@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS basketEntry (
     productName TEXT NOT NULL,
     productPrice NUMERIC(10, 2) NOT NULL,
     productCount INT NOT NULL,
-    PRIMARY KEY (basketId, productId)
+    PRIMARY KEY (basketId, productId),
     CONSTRAINT fk_basket
         FOREIGN KEY (basketId)
         REFERENCES basket(id)

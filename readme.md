@@ -2,8 +2,7 @@
 
 ## Introduction
 
-The goal of this project is to showcase a simple backend application using spring boot framework, maven, simple dockerization and h2 database.<br/>
-There will be another project for frontend part in React with TypeScript coming soon.
+The goal of this project is to showcase a simple backend application using spring boot framework, maven, simple dockerization and postgresql db.
 
 ## Content
 I will use this paragraph to showcase features added to the application
@@ -117,3 +116,4 @@ Even though the diff is smaller the change is significant.
 * Added cacheable with caffeine cache on dummy endpoints only
 * Added transactional on updateBasket (I think that JPA will automatically create transaction if it detects multiple changes but just to be safe)
 
+## 0.1.5 - Bugfixing

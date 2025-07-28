@@ -2,11 +2,13 @@ package hr.abysalto.hiring.mid.favourites.service;
 
 import hr.abysalto.hiring.mid.common.util.CryptUtils;
 import hr.abysalto.hiring.mid.favourites.model.FavouriteEntity;
+import hr.abysalto.hiring.mid.favourites.model.FavouriteId;
 import hr.abysalto.hiring.mid.favourites.model.FavouritesDto;
 import hr.abysalto.hiring.mid.favourites.repository.FavouritesRepository;
 import hr.abysalto.hiring.mid.product.exception.ProductNotFound;
 import hr.abysalto.hiring.mid.product.service.ProductService;
 import hr.abysalto.hiring.mid.user.service.UserService;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +31,7 @@ public class FavouritesService {
         addFavourite(userId, productId);
     }
 
+    @Transactional
     public void removeFavourite(String username, String encryptedProductId) {
         var userId = userService.getUserByUsername(username).id();
         var productId = CryptUtils.decrypt(encryptedProductId);
@@ -36,9 +39,9 @@ public class FavouritesService {
     }
 
     private FavouritesDto getAllFavourites(int userId) {
-        var favourites = favouritesRepository.getAllByUserId(userId)
+        var favourites = favouritesRepository.getAllByIdUserId(userId)
                 .stream()
-                .map(FavouriteEntity::getProductId)
+                .map(entity -> entity.getId().productId())
                 .toList();
         return new FavouritesDto(favourites);
     }
@@ -48,12 +51,12 @@ public class FavouritesService {
             throw new ProductNotFound("Product not found.");
         }
         var entity = new FavouriteEntity();
-        entity.setUserId(userId);
-        entity.setProductId(productId);
+        var favouriteId = new FavouriteId(userId, productId);
+        entity.setId(favouriteId);
         favouritesRepository.save(entity);
     }
 
     private void removeFavourite(int userId, int productId) {
-        favouritesRepository.deleteByUserIdAndProductId(userId, productId);
+        favouritesRepository.deleteById(new FavouriteId(userId, productId));
     }
 }

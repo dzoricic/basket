@@ -4,13 +4,10 @@ import hr.abysalto.hiring.mid.common.util.JwtUtils;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.oauth2.jwt.Jwt;
-import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 import java.util.List;
@@ -36,8 +33,6 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
                 var authentication = getAuthentication(request);
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
-
-            filterChain.doFilter(request, response);
 
             filterChain.doFilter(request, response);
         } catch (Exception ex) {

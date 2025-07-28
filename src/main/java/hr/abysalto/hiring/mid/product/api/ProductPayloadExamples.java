@@ -98,4 +98,19 @@ public final class ProductPayloadExamples {
                     ],
                 }
             """;
+
+    public static final String FAVOURITES_REQUEST_PAYLOAD = """
+            {
+                "productId": "XQ98P5Z6KYV4D3LM"
+            }
+            """;
+
+    public static final String FAVOURITES_RESPONSE_PAYLOAD = """
+            {
+                "favourites": [
+                    "XQ98P5Z6KYV4D3LM",
+                    "YV4D3LMXQ98P5Z6K",
+                ]
+            }
+            """;
 }

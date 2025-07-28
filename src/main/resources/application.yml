@@ -8,7 +8,9 @@ spring:
     password: ${DB_PASSWORD:A_Str0ng_Passw0rd}
     driver-class-name: org.postgresql.Driver
   jpa:
-    hibernate.ddl-auto: update
+    hibernate:
+      ddl-auto: update
+      naming.physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     show-sql: false
     properties.hibernate:
       dialect: org.hibernate.dialect.PostgreSQLDialect
@@ -33,7 +35,7 @@ spring:
     caffeine:
       spec: maximumSize=1000,expireAfterWrite=10m
     cache-names:
-      - userCache
+      - productsCache
       - productCache
 
 logging:

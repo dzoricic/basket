@@ -1,7 +1,8 @@
 package hr.abysalto.hiring.mid.product.api;
 
 import hr.abysalto.hiring.mid.common.model.Pagination;
-import hr.abysalto.hiring.mid.favourites.model.FavouritesDto;
+import hr.abysalto.hiring.mid.favourites.model.FavouritesApiModel;
+import hr.abysalto.hiring.mid.favourites.model.FavouritesMapper;
 import hr.abysalto.hiring.mid.favourites.model.FavouritesRequest;
 import hr.abysalto.hiring.mid.favourites.service.FavouritesService;
 import hr.abysalto.hiring.mid.product.mapper.ProductMapper;
@@ -37,7 +38,7 @@ public class ProductController {
                             description = "Success",
                             responseCode = "200",
                             content = @Content(
-                                    mediaType = "text/plain",
+                                    mediaType = "application/json",
                                     schema = @Schema(implementation = ProductsResponseApiModel.class),
                                     examples = @ExampleObject(ProductPayloadExamples.GET_PRODUCTS_RESPONSE)
                             )
@@ -57,7 +58,7 @@ public class ProductController {
                             description = "Success",
                             responseCode = "200",
                             content = @Content(
-                                    mediaType = "text/plain",
+                                    mediaType = "application/json",
                                     schema = @Schema(implementation = ProductApiModel.class),
                                     examples = @ExampleObject(ProductPayloadExamples.GET_PRODUCT_RESPONSE)
                             )
@@ -72,6 +73,15 @@ public class ProductController {
 
     @Operation(
             summary = "Add product to favourites.",
+            requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
+                    description = "Add to favourites request payload.",
+                    required = true,
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = FavouritesRequest.class),
+                            examples = @ExampleObject(ProductPayloadExamples.FAVOURITES_REQUEST_PAYLOAD)
+                    )
+            ),
             responses = {
                     @ApiResponse(
                             description = "Accepted",
@@ -89,6 +99,15 @@ public class ProductController {
 
     @Operation(
             summary = "Remove product from favourites.",
+            requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
+                    description = "Remove from favourites request payload.",
+                    required = true,
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = FavouritesRequest.class),
+                            examples = @ExampleObject(ProductPayloadExamples.FAVOURITES_REQUEST_PAYLOAD)
+                    )
+            ),
             responses = {
                     @ApiResponse(
                             description = "Accepted",
@@ -104,9 +123,23 @@ public class ProductController {
         return ResponseEntity.accepted().build();
     }
 
+    @Operation(
+            summary = "Get all favourites.",
+            responses = {
+                    @ApiResponse(
+                            description = "Success",
+                            responseCode = "200",
+                            content = @Content(
+                                    mediaType = "application/json",
+                                    schema = @Schema(implementation = FavouritesApiModel.class),
+                                    examples = @ExampleObject(ProductPayloadExamples.FAVOURITES_RESPONSE_PAYLOAD)
+                            )
+                    )
+            }
+    )
     @GetMapping("/favourites")
-    public ResponseEntity<FavouritesDto> getAllFavourites(Authentication authentication) {
+    public ResponseEntity<FavouritesApiModel> getAllFavourites(Authentication authentication) {
         var favourites = favouritesService.getAllFavourites(authentication.getName());
-        return ResponseEntity.ok(favourites);
+        return ResponseEntity.ok(FavouritesMapper.toApiModel(favourites));
     }
 }
