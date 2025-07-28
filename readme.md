@@ -120,3 +120,10 @@ Even though the diff is smaller the change is significant.
 
 * Fixed bugs
 * Updated documentation
+
+## 1.0.0 - Major Release
+
+* Final release
+  * I wanted to do the FE part and more tests but I couldn't make it in time
+  * Any questions regarding topics that I didn't cover are welcome
+* Added postman collection (targeting localhost 8080)
